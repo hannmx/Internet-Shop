@@ -93,102 +93,56 @@
                 <h3>Fetured Items</h3>
                 <p>Shop for items based on what we featured in this week</p>
             </div>
-            <div class="all__cards">
-                <div class="product__card">
-                    <div class="prod__image_cont">
-                        <img class="product__image" src="./img/product1.png" alt="product1">
-                        <button class="btn">
-                            <img src="./img/cart.svg" alt="cart">
-                            Add to Cart
-                        </button>
-                    </div>
-                    <div class="card__text">
-                        <h3>ELLERY X M'O CAPSULE</h3>
-                        <p>Known for her sculptural takes on traditional tailoring, Australian arbiter of cool Kym
-                            Ellery teams up with Moda Operandi.</p>
-                        <h4>$52.00</h4>
-                    </div>
-                </div>
-                <div class="product__card">
-                    <div class="prod__image_cont">
-                        <img src="./img/product2.png" alt="product2">
-                        <button class="btn">
-                            <img src="./img/cart.svg" alt="cart">
-                            Add to Cart
-                        </button>
-                    </div>
-                    <div class="card__text">
-                        <h3>ELLERY X M'O CAPSULE</h3>
-                        <p>Known for her sculptural takes on traditional tailoring, Australian arbiter of cool Kym
-                            Ellery teams up with Moda Operandi.</p>
-                        <h4>$52.00</h4>
-                    </div>
-                </div>
-                <div class="product__card">
-                    <div class="prod__image_cont">
-                        <img src="./img/product3.png" alt="product3">
-                        <button class="btn">
-                            <img src="./img/cart.svg" alt="cart">
-                            Add to Cart
-                        </button>
-                    </div>
-                    <div class="card__text">
-                        <h3>ELLERY X M'O CAPSULE</h3>
-                        <p>Known for her sculptural takes on traditional tailoring, Australian arbiter of cool Kym
-                            Ellery teams up with Moda Operandi.</p>
-                        <h4>$52.00</h4>
-                    </div>
-                </div>
-                <div class="product__card">
-                    <div class="prod__image_cont">
-                        <img src="./img/product4.png" alt="product4">
-                        <button class="btn">
-                            <img src="./img/cart.svg" alt="cart">
-                            Add to Cart
-                        </button>
-                    </div>
-                    <div class="card__text">
-                        <h3>ELLERY X M'O CAPSULE</h3>
-                        <p>Known for her sculptural takes on traditional tailoring, Australian arbiter of cool Kym
-                            Ellery teams up with Moda Operandi.</p>
-                        <h4>$52.00</h4>
-                    </div>
-                </div>
-                <div class="product__card">
-                    <div class="prod__image_cont">
-                        <img src="./img/product5.png" alt="product5">
-                        <button class="btn">
-                            <img src="./img/cart.svg" alt="cart">
-                            Add to Cart
-                        </button>
-                    </div>
-                    <div class="card__text">
-                        <h3>ELLERY X M'O CAPSULE</h3>
-                        <p>Known for her sculptural takes on traditional tailoring, Australian arbiter of cool Kym
-                            Ellery teams up with Moda Operandi.</p>
-                        <h4>$52.00</h4>
-                    </div>
-                </div>
-                <div class="product__card">
-                    <div class="prod__image_cont">
-                        <img src="./img/product6.png" alt="product6">
-                        <button class="btn">
-                            <img src="./img/cart.svg" alt="cart">
-                            Add to Cart
-                        </button>
-                    </div>
-                    <div class="card__text">
-                        <h3>ELLERY X M'O CAPSULE</h3>
-                        <p>Known for her sculptural takes on traditional tailoring, Australian arbiter of cool Kym
-                            Ellery teams up with Moda Operandi.</p>
-                        <h4>$52.00</h4>
-                    </div>
-                </div>
-            </div>
+            <div class="all__cards"></div>
             <div class="all__prod__button">
                 <button>Browse All Product</button>
             </div>
         </div>
+
+        <script>
+            // Загружаем данные из data.json
+            fetch('data.json')
+                .then(response => response.json())
+                .then(data => {
+                    const featuredItems = document.querySelector('.all__cards');
+                    data.forEach(item => {
+                        const productCard = document.createElement('div');
+                        productCard.className = 'product__card';
+        
+                        const imgCont = document.createElement('div');
+                        imgCont.className = 'prod__image_cont';
+                        const img = document.createElement('img');
+                        img.className = 'product__image';
+                        img.src = item.image;
+                        img.alt = item.title;
+                        imgCont.appendChild(img);
+        
+                        const btn = document.createElement('button');
+                        btn.className = 'btn';
+                        btn.innerHTML = `<img src="./img/cart.svg" alt="cart"> Add to Cart`;
+                        imgCont.appendChild(btn);
+        
+                        productCard.appendChild(imgCont);
+        
+                        const cardText = document.createElement('div');
+                        cardText.className = 'card__text';
+                        const h3 = document.createElement('h3');
+                        h3.textContent = item.title;
+                        const p = document.createElement('p');
+                        p.textContent = item.description;
+                        const h4 = document.createElement('h4');
+                        h4.textContent = item.price;
+                        cardText.appendChild(h3);
+                        cardText.appendChild(p);
+                        cardText.appendChild(h4);
+        
+                        productCard.appendChild(cardText);
+        
+                        featuredItems.appendChild(productCard);
+                    });
+                });
+        </script>
+
     </main>
     <div class="main__bottom">
         <div class="footer__info">
