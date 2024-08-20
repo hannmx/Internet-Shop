@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Main</title>
-    <link rel="stylesheet" href="style.css"/>
+    <link rel="stylesheet" href="style.css" />
     <link
         href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
+
 <body>
     <header class="top__container">
         <div class="head__navbar center__site">
@@ -66,29 +68,41 @@
             <div class="top__card">
                 <img src="./img/for_woman.png" alt="for_woman">
                 <div class="centered">
-                    <a href="#"><h3>30% OFF</h3><h2>FOR WOMEN</h2></a>
+                    <a href="#">
+                        <h3>30% OFF</h3>
+                        <h2>FOR WOMEN</h2>
+                    </a>
                 </div>
             </div>
             <div class="top__card">
                 <a href="./catalog.html"><img src="./img/for_man.png" alt="for_man"></a>
                 <div class="centered">
-                    <a href="./catalog.html"><h3>HOT DEAL</h3><h2>FOR MEN</h2></a>
+                    <a href="./catalog.html">
+                        <h3>HOT DEAL</h3>
+                        <h2>FOR MEN</h2>
+                    </a>
                 </div>
             </div>
             <div class="top__card">
                 <img src="./img/for_kids.png" alt="for_kids">
                 <div class="centered">
-                    <a href="#"><h3>NEW ARRIVALS</h3><h2>FOR KIDS</h2></a>
+                    <a href="#">
+                        <h3>NEW ARRIVALS</h3>
+                        <h2>FOR KIDS</h2>
+                    </a>
                 </div>
             </div>
             <div class="top__card top__card__big">
                 <img src="./img/accesories.png" alt="accesories">
                 <div class="centered">
-                    <a href="#"><h3>LUXIROUS & TRENDY</h3><h2>ACCESORIES</h2></a>
+                    <a href="#">
+                        <h3>LUXIROUS & TRENDY</h3>
+                        <h2>ACCESORIES</h2>
+                    </a>
                 </div>
             </div>
         </div>
-        <div class="products">
+        <div class="products center__site">
             <div class="main__title">
                 <h3>Fetured Items</h3>
                 <p>Shop for items based on what we featured in this week</p>
@@ -108,7 +122,7 @@
                     data.forEach(item => {
                         const productCard = document.createElement('div');
                         productCard.className = 'product__card';
-        
+
                         const imgCont = document.createElement('div');
                         imgCont.className = 'prod__image_cont';
                         const img = document.createElement('img');
@@ -116,16 +130,18 @@
                         img.src = item.image;
                         img.alt = item.title;
                         imgCont.appendChild(img);
-        
+
                         const btn = document.createElement('button');
                         btn.className = 'btn';
                         btn.innerHTML = `<img src="./img/cart.svg" alt="cart"> Add to Cart`;
                         imgCont.appendChild(btn);
-        
+
                         productCard.appendChild(imgCont);
-        
+
                         const cardText = document.createElement('div');
                         cardText.className = 'card__text';
+                        cardText.setAttribute('data-size', item.size);
+                        cardText.setAttribute('data-color', item.color);
                         const h3 = document.createElement('h3');
                         h3.textContent = item.title;
                         const p = document.createElement('p');
@@ -135,14 +151,13 @@
                         cardText.appendChild(h3);
                         cardText.appendChild(p);
                         cardText.appendChild(h4);
-        
+
                         productCard.appendChild(cardText);
-        
+
                         featuredItems.appendChild(productCard);
                     });
                 });
         </script>
-
     </main>
     <div class="main__bottom">
         <div class="footer__info">
@@ -165,6 +180,134 @@
                 </p>
             </div>
         </div>
+        <div class="cart-items center__site">
+            <h3>Cart Items</h3>
+            <div class="cart-items-list"></div>
+        </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const cartItemsList = document.querySelector('.cart-items-list');
+                const cartItemsSection = document.querySelector('.cart-items');
+                const featuredItems = document.querySelector('.all__cards');
+
+                // Функция для обновления видимости секции корзины
+                function updateCartVisibility() {
+                    if (cartItemsList.children.length === 0) {
+                        cartItemsSection.style.display = 'none';
+                    } else {
+                        cartItemsSection.style.display = 'block';
+                    }
+                }
+
+                // Обновление видимости корзины при загрузке страницы
+                updateCartVisibility();
+
+                // Функция для создания товара в корзине
+                function createCartItem(item) {
+                    // Проверка, если товар уже в корзине
+                    const existingCartItem = [...cartItemsList.children].find(cartItem => {
+                        return cartItem.querySelector('.cart-item__title').textContent === item.title &&
+                            cartItem.querySelector('.cart-item__image').src === item.imageUrl;
+                    });
+
+                    if (existingCartItem) {
+                        const quantityInput = existingCartItem.querySelector('.cart-item__quantity-input');
+                        quantityInput.value = parseInt(quantityInput.value) + 1;
+                        return;
+                    }
+
+                    // Создание нового товара
+                    const cartItem = document.createElement('div');
+                    cartItem.className = 'cart-item';
+
+                    const itemImage = document.createElement('img');
+                    itemImage.src = item.imageUrl;
+                    itemImage.alt = item.title;
+                    itemImage.className = 'cart-item__image';
+                    cartItem.appendChild(itemImage);
+
+                    const itemInfo = document.createElement('div');
+                    itemInfo.className = 'cart-item__info';
+
+                    const removeButton = document.createElement('button');
+                    removeButton.className = 'remove-item';
+
+                    const removeIcon = document.createElement('img');
+                    removeIcon.src = './img/remove.svg';
+                    removeIcon.alt = 'Remove';
+                    removeButton.appendChild(removeIcon);
+                    itemInfo.appendChild(removeButton);
+
+                    const itemTitle = document.createElement('h4');
+                    itemTitle.textContent = item.title;
+                    itemTitle.className = 'cart-item__title';
+                    itemInfo.appendChild(itemTitle);
+
+                    const itemPrice = document.createElement('p');
+                    itemPrice.innerHTML = `<span class="label-text">Price:</span> <span class="value-text__price">${item.price}</span>`;
+                    itemPrice.className = 'cart-item__price';
+                    itemInfo.appendChild(itemPrice);
+
+                    const itemColor = document.createElement('p');
+                    itemColor.innerHTML = `<span class="label-text">Color:</span> <span class="value-text">${item.color}</span>`;
+                    itemColor.className = 'cart-item__color';
+                    itemInfo.appendChild(itemColor);
+
+                    const itemSize = document.createElement('p');
+                    itemSize.innerHTML = `<span class="label-text">Size:</span> <span class="value-text">${item.size}</span>`;
+                    itemSize.className = 'cart-item__size';
+                    itemInfo.appendChild(itemSize);
+
+                    const itemQuantity = document.createElement('div');
+                    itemQuantity.className = 'cart-item__quantity';
+                    itemInfo.appendChild(itemQuantity);
+
+                    const quantityLabel = document.createElement('label');
+                    quantityLabel.innerHTML = `<span class="label-text">Quantity:</span>`
+                    itemQuantity.appendChild(quantityLabel);
+
+                    const quantityInput = document.createElement('input');
+                    quantityInput.type = 'number';
+                    quantityInput.value = 1;
+                    quantityInput.className = 'cart-item__quantity-input';
+                    quantityInput.min = 1;
+                    itemQuantity.appendChild(quantityInput);
+
+                    itemInfo.appendChild(itemQuantity);
+
+                    cartItem.appendChild(itemInfo);
+
+                    // Обработчик удаления товара из корзины
+                    removeButton.addEventListener('click', () => {
+                        cartItemsList.removeChild(cartItem);
+                        updateCartVisibility();
+                    });
+
+                    return cartItem;
+                }
+
+                // Обработчик кликов на кнопку "Add to Cart"
+                featuredItems.addEventListener('click', (event) => {
+                    if (event.target.closest('.btn')) {
+                        const productCard = event.target.closest('.product__card');
+                        const item = {
+                            title: productCard.querySelector('.card__text h3').textContent,
+                            price: productCard.querySelector('.card__text h4').textContent,
+                            imageUrl: productCard.querySelector('img').src,
+                            size: productCard.querySelector('.card__text').getAttribute('data-size'),
+                            color: productCard.querySelector('.card__text').getAttribute('data-color')
+                        };
+
+                        const cartItem = createCartItem(item);
+                        if (cartItem) {
+                            cartItemsList.appendChild(cartItem);
+                        }
+                        updateCartVisibility();
+                    }
+                });
+            });
+
+        </script>
         <div class="footer__subscribe">
             <div class="footer__blur">
                 <div class="footer__subscribe__info">

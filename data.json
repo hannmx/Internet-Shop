@@ -3,37 +3,49 @@
       "image": "./img/product1.png",
       "title": "ELLERY X M'O CAPSULE",
       "description": "Known for her sculptural takes on traditional tailoring, Australian arbiter of cool Kym Ellery teams up with Moda Operandi.",
+      "color": "White",
+      "size": "L",
       "price": "$52.00"
     },
     {
       "image": "./img/product2.png",
-      "title": "ELLERY X M'O CAPSULE",
+      "title": "CAPSULE SUIT",
       "description": "Known for her sculptural takes on traditional tailoring, Australian arbiter of cool Kym Ellery teams up with Moda Operandi.",
-      "price": "$52.00"
+      "color": "Black",
+      "size": "M",
+      "price": "$120.00"
     },
     {
       "image": "./img/product3.png",
-      "title": "ELLERY X M'O CAPSULE",
+      "title": "MANGO  PEOPLE  T-SHIRT",
       "description": "Known for her sculptural takes on traditional tailoring, Australian arbiter of cool Kym Ellery teams up with Moda Operandi.",
-      "price": "$52.00"
+      "color": "Dark blue",
+      "size": "XL",
+      "price": "$25.00"
     },
     {
       "image": "./img/product4.png",
-      "title": "ELLERY X M'O CAPSULE",
+      "title": "POLO T-SHIRT",
       "description": "Known for her sculptural takes on traditional tailoring, Australian arbiter of cool Kym Ellery teams up with Moda Operandi.",
-      "price": "$52.00"
+      "color": "Blue",
+      "size": "L",
+      "price": "$45.00"
     },
     {
       "image": "./img/product5.png",
-      "title": "ELLERY X M'O CAPSULE",
+      "title": "CASUAL JACKET",
       "description": "Known for her sculptural takes on traditional tailoring, Australian arbiter of cool Kym Ellery teams up with Moda Operandi.",
-      "price": "$52.00"
+      "color": "Sky",
+      "size": "M",
+      "price": "$88.00"
     },
     {
       "image": "./img/product6.png",
-      "title": "ELLERY X M'O CAPSULE",
+      "title": "SUMMER SHIRT",
       "description": "Known for her sculptural takes on traditional tailoring, Australian arbiter of cool Kym Ellery teams up with Moda Operandi.",
-      "price": "$52.00"
+      "color": "Khaki",
+      "size": "S",
+      "price": "$37.00"
     }
   ]
   
